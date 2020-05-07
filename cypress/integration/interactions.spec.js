@@ -1,5 +1,7 @@
 // SET CYPRESS_MY_ENV_VARIABLE="hello"    
-alert(Cypress.env('MY_ENV_VARIABLE'));
+// alert(Cypress.env('MY_ENV_VARIABLE'));
+
+
 
 describe('Basic page interactions', () => {
     beforeEach(() => {
