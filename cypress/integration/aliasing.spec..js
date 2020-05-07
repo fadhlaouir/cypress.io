@@ -6,20 +6,26 @@ describe('Text box with max characters', () => {
         cy.visit('http://localhost:3000/example-3');
 
         cy.get('[data-cy="last-name-chars-left-count"]')
+        .as('charsLeftSpan');
+
+        cy.get('[data-cy="input-last-name"]')
+        .as('charInput')
+
+        cy.get('@charsLeftSpan')
             .invoke('text')
             .should('equal', '15');
 
-        cy.get('[data-cy="input-last-name"]')
+        cy.get('@charInput')
             .type('hello');
 
-        cy.get('[data-cy="last-name-chars-left-count"]')
+        cy.get('@charsLeftSpan')
             .invoke('text')
             .should('equal', '10');
 
-        cy.get('[data-cy="input-last-name"]')
+        cy.get('@charInput')
             .type(' my firend');
 
-        cy.get('[data-cy="last-name-chars-left-count"]')
+        cy.get('@charsLeftSpan')
             .invoke('text')
             .should('equal', '0');
     });
@@ -27,9 +33,10 @@ describe('Text box with max characters', () => {
     it('prevent the user from typing more characters once max is exceeded', () => {
         cy.visit('http://localhost:3000/example-3');
 
+        cy.get('[data-cy="input-last-name"]')
+        .as('charInput')
 
-
-        cy.get('[data-cy="input-last-name"]').type('qwertyuiopasdfghjkl;xcvbn');
-        cy.get('[data-cy="input-last-name"]').should('have.attr', 'value', 'qwertyuiopasdfg');
+        cy.get('@charInput').type('qwertyuiopasdfghjkl;xcvbn');
+        cy.get('@charInput').should('have.attr', 'value', 'qwertyuiopasdfg');
     })
 })
